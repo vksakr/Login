@@ -9,11 +9,10 @@
 </head>
 <body>
  
-<h1>수강신청 화면</h1>
+<h1>학생 홈</h1>
 
 ${userSession.getID()}
 
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>
-<a href="${pageContext.request.contextPath}/GwamokController/gwamok.do"> 과목개설</a>
 </body>
 </html>

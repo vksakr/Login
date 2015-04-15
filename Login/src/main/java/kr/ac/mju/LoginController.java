@@ -28,11 +28,15 @@ public class LoginController {
 		
 		
 		logger.info("환영합니다"+userID);
+		logger.info("환영합니다"+user.getJob());
 		if(user.getID() == null){
 			return "errorView";
-		}else{
+		}else if(user.getJob().equals("교수")){
 		request.getSession().setAttribute("userSession", user);
-		return "sugangView";
+		return "PsugangView";
+		}else{
+			request.getSession().setAttribute("userSession", user);
+			return "SsugangView";
 		}
 	}
 	

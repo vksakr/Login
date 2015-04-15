@@ -32,14 +32,15 @@ public class LoginService {
 		String users;
 		String password;
 		String name;
+		String job;
 		
 		while((temp = in.readLine()) != null)
 		{
 			users = temp.split(" ")[0];
 			password = temp.split(" ")[1];
 			name = temp.split(" ")[2];
-			
-			vt.add(new User(users, password, name));
+			job = temp.split(" ")[3];
+			vt.add(new User(users, password, name, job));
 		}
 		
 		User mTemp = new User();
@@ -52,7 +53,7 @@ public class LoginService {
 				return mTemp;
 			}
 		}
-		return new User(null, null, null);
+		return new User(null, null, null, null);
 
 	//	User user = new User();
 	//	user.setID(userID);
