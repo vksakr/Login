@@ -9,16 +9,12 @@
 </head>
 <body>
  
-<h1>과목 화면</h1>
-
-${userSession.getID()}
+<h1>과목 개설 결과</h1>
+<p>과목명</p>${gwamokSession.getName()}
+<p>수강인원</p>${gwamokSession.getPeople()}
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>
 <a href="${pageContext.request.contextPath}/GwamokController/Home"> 이전화면</a>
 
-	<form action="${pageContext.request.contextPath}/GwamokController/Gwamokgaeseol" method="post">
-		과목명<input type="text" name="gwamokName"><br/>
-		수강인원<input type="text" name="gwamokPeople"><br/>
-		<input type="submit" value="등록">
-	</form>
+
 </body>
 </html>
