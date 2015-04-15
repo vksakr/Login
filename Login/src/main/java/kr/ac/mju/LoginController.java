@@ -1,5 +1,6 @@
 package kr.ac.mju;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ public class LoginController {
 	@Autowired
 	private LoginService service;
 	@RequestMapping(value = "/LoginController/Login.do", method = RequestMethod.POST)
-	public String login(HttpServletRequest request) throws UnsupportedEncodingException {
+	public String login(HttpServletRequest request) throws IOException {
 		request.setCharacterEncoding("utf-8");
 		String userID = request.getParameter("userID");
 		String userPassword = request.getParameter("userPassword");
@@ -27,7 +28,7 @@ public class LoginController {
 		
 		
 		logger.info("환영합니다"+userID);
-		if(userID == null){
+		if(user.getID() == null){
 			return "redirect:/";
 		}else{
 		request.getSession().setAttribute("userSession", user);
