@@ -29,7 +29,7 @@ public class LoginController {
 		
 		logger.info("환영합니다"+userID);
 		if(user.getID() == null){
-			return "redirect:/";
+			return "errorView";
 		}else{
 		request.getSession().setAttribute("userSession", user);
 		return "sugangView";
