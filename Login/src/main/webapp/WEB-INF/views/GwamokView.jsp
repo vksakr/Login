@@ -11,6 +11,7 @@
  
 <h1>과목 화면</h1>
 
+${userSession.getID()}
 
 </body>
 </html>
