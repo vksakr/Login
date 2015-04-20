@@ -11,6 +11,7 @@
  
 <h1>교수 홈</h1>
 
+
 ${userSession.getID()}
 
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>

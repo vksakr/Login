@@ -18,7 +18,9 @@ ${userSession.getID()}
 	<form action="${pageContext.request.contextPath}/GwamokController/Gwamokgaeseol" method="post">
 		과목명<input type="text" name="gwamokName"><br/>
 		수강인원<input type="text" name="gwamokPeople"><br/>
+			<input type="hidden" value="${userSession.getID()}" name="gwamokInstructor">
 		<input type="submit" value="등록">
+
 	</form>
 </body>
 </html>

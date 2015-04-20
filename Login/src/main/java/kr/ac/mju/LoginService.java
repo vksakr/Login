@@ -21,7 +21,8 @@ public class LoginService {
 	public User login(String userID, String userPassword) throws IOException {
 		// TODO Auto-generated method stub
 		//dao 이용
-		String path = LoginService.class.getResource("").getPath();
+	//	String path = LoginService.class.getResource("").getPath();
+		String path = this.getClass().getResource("").getPath();
 		File file = new File(path + "userData.txt"); //path 경로 입력 
 		FileReader writer = new FileReader(file);
 		BufferedReader in = new BufferedReader(writer);

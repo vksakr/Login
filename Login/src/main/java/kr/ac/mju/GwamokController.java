@@ -22,7 +22,8 @@ public class GwamokController {
 	public String gwamok(HttpServletRequest request){
 		logger.info("Welcome gwamok!");
 		request.getSession().getAttribute("userSession");
-	
+		 String string = "abc";
+		 request.setAttribute("abc", string);
 		return "GwamokView";
 	}
 	
@@ -39,18 +40,11 @@ public class GwamokController {
 		request.setCharacterEncoding("utf-8");
 		String gwamokName = request.getParameter("gwamokName");
 		String gwamokPeople = request.getParameter("gwamokPeople");
-		gwamok gwamok = service.gaeseol(gwamokName, gwamokPeople);
+		String gwamokInstructor = request.getParameter("gwamokInstructor");
+		gwamok gwamok = service.gaeseol(gwamokName, gwamokPeople, gwamokInstructor);
 		
 		request.getSession().setAttribute("gwamokSession", gwamok);
-//		logger.info("환영합니다"+userID);
-//		logger.info("환영합니다"+user.getJob());
-//		if(user.getID() == null){
-//			return "errorView";
-//		}else if(user.getJob().equals("교수")){
-//		request.getSession().setAttribute("userSession", user);
-//		return "PsugangView";
-//		}else{
-//			request.getSession().setAttribute("userSession", user);
+
 			return "gaeseolView";
 //		}
 	}

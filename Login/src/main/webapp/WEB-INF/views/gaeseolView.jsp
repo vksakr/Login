@@ -10,8 +10,9 @@
 <body>
  
 <h1>과목 개설 결과</h1>
-<p>과목명</p>${gwamokSession.getName()}
-<p>수강인원</p>${gwamokSession.getPeople()}
+<p>과목명:${gwamokSession.getName()}</p>
+<p>수강인원:${gwamokSession.getPeople()}</p>
+<p>담당교수:${gwamokSession.getInstructor()}</p>
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>
 <a href="${pageContext.request.contextPath}/GwamokController/Home"> 이전화면</a>
 

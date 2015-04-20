@@ -1,9 +1,11 @@
 package kr.ac.mju;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -18,15 +20,19 @@ import kr.ac.mju.gwamok;
 public class gwamokService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	Vector<gwamok> vt = new Vector<gwamok>();
-	public gwamok gaeseol(String gwamokName, String gwamokPeople) throws IOException {
+	public gwamok gaeseol(String gwamokName, String gwamokPeople, String gwamokInstructor) throws IOException {
 		
-//		String path = gwamokService.class.getResource("").getPath();
-//		File file = new File(path + "userData.txt"); //path 경로 입력 
-//		FileReader writer = new FileReader(file);
-//		BufferedReader in = new BufferedReader(writer);
+		String path = this.getClass().getResource("").getPath();
+		File file = new File(path + "gwamokData.txt"); //path 경로 입력 
+		FileWriter writer = new FileWriter(file,true);
+		BufferedWriter in = new BufferedWriter(writer);
 		
-//		logger.info("파일 경로 :"+ gwamokService.class.getResource("").getPath());
+		logger.info("파일 경로 :"+ this.getClass().getResource("").getPath());
 		
+		in.write(gwamokName+" ");
+		in.write(gwamokPeople+" ");
+		in.write(gwamokInstructor+"\n");
+		in.close();
 //		String temp;
 //		String users;
 //		String password;
@@ -54,12 +60,8 @@ public class gwamokService {
 //		}
 //		return new User(null, null, null, null);
 
-	//	User user = new User();
-		gwamok gwamok = new gwamok();
-		gwamok.setName(gwamokName);
-		gwamok.setPeople(gwamokPeople);
-	//	user.setID(userID);
-	//	user.setName("원호명");
+		gwamok gwamok = new gwamok(gwamokName,gwamokPeople,gwamokInstructor);
+
 		
 		return gwamok;
 	}
