@@ -44,4 +44,11 @@ public class HomeController {
 		return "sugangView";
 	}
 	
+	@RequestMapping(value = "/test.do", method = RequestMethod.GET)
+	public String test(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+	
+		return "test";
+	}
 }

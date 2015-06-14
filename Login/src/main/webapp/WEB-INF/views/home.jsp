@@ -15,7 +15,14 @@
 		사용자 아이디<input type="text" name="userID"><br/>
 		비밀번호<input type="password" name="userPassword"><br/>
 		<input type="submit" value="로그인">
+		
 	</form>
+	<form action="LoginController/Login_new.do" method="post">
+		<input type="submit" value="회원가입">
+		
+	</form>
+	
+	<a href="${pageContext.request.contextPath}/test.do">DBtest</a>
 
 </body>
 </html>

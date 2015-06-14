@@ -1,11 +1,12 @@
 package kr.ac.mju;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Vector;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,58 +18,91 @@ import kr.ac.mju.User;
 @Service
 public class LoginService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-	Vector<User> vt = new Vector<User>();
-	public User login(String userID, String userPassword) throws IOException {
-		// TODO Auto-generated method stub
-		//dao 이용
-	//	String path = LoginService.class.getResource("").getPath();
-		String path = this.getClass().getResource("").getPath();
-		File file = new File(path + "userData.txt"); //path 경로 입력 
-		FileReader writer = new FileReader(file);
-		BufferedReader in = new BufferedReader(writer);
-		
-		logger.info("파일 경로 :"+ LoginService.class.getResource("").getPath());
-		
-		String temp;
-		String users;
-		String password;
-		String name;
-		String job;
-		
-		while((temp = in.readLine()) != null)
-		{
-			users = temp.split(" ")[0];
-			password = temp.split(" ")[1];
-			name = temp.split(" ")[2];
-			job = temp.split(" ")[3];
-			vt.add(new User(users, password, name, job));
-		}
-		
-		User mTemp = new User();
-		
-		for(int i=0; i<vt.size(); i++)
-		{
-			mTemp = (User)vt.get(i);
-			if(userID.equals(mTemp.getID()) && userPassword.equals(mTemp.getPassword()))
-			{
-				return mTemp;
-			}
-		}
-		return new User(null, null, null, null);
 
-	//	User user = new User();
-	//	user.setID(userID);
-	//	user.setName("원호명");
+	
+	
+	public User login(String ID, String PW) {
+
+		User user = null;
 		
-	//	return user;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+			String userId = "class_a";
+			String userPass = "delab";
+			
+			conn = DriverManager.getConnection(jdbcUrl, userId, userPass);
+			stmt = conn.prepareStatement("select * from user_se where id = ? and pw = ?");
+			stmt.setString(1, ID);
+			stmt.setString(2, PW);
+			rs = stmt.executeQuery();
+			user = new User();
+			
+			if(rs.next()){
+					user.setID(rs.getString("id"));
+					user.setName(rs.getString("name"));
+					user.setPassword(rs.getString("pw"));
+					user.setJob(rs.getString("job"));
+				}
+			rs.close();
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} catch (ClassNotFoundException e){
+			
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		//return new User(null, null, null, null);
+		return user;
+
+	}
+	
+	public void newusers(String ID, String Name, String Password, String Job) {
 		
-		/*
-		private fianl static String URL = "jdbc:mysql://localjost:3306/";
-		private fianl static String ID = "";
-		private fianl static String PASSWORD = "";
-		
-		private Connection getConnection() throws 
-*/
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int result;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+			String userId = "class_a";
+			String userPass = "delab";
+			
+			conn = DriverManager.getConnection(jdbcUrl, userId, userPass);
+			
+			stmt = conn.prepareStatement("insert into USER_SE values(?, ?, ? ,?)");
+			stmt.setString(1, ID);
+			stmt.setString(2, Name);
+			stmt.setString(3, Password);
+			stmt.setString(4, Job);
+			
+			result = stmt.executeUpdate();
+			
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} catch (ClassNotFoundException e){
+			
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}	
 	}
 
 }

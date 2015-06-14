@@ -22,9 +22,7 @@ public class GwamokController {
 	public String gwamok(HttpServletRequest request){
 		logger.info("Welcome gwamok!");
 		request.getSession().getAttribute("userSession");
-		 String string = "abc";
-		 request.setAttribute("abc", string);
-		return "GwamokView";
+		return "sugangView";
 	}
 	
 	@RequestMapping(value = "/GwamokController/Home")
@@ -34,19 +32,11 @@ public class GwamokController {
 	}
 	
 	@Autowired
-	private gwamokService service;
-	@RequestMapping(value = "/GwamokController/Gwamokgaeseol", method = RequestMethod.POST)
-	public String login(HttpServletRequest request) throws IOException {
-		request.setCharacterEncoding("utf-8");
-		String gwamokName = request.getParameter("gwamokName");
-		String gwamokPeople = request.getParameter("gwamokPeople");
-		String gwamokInstructor = request.getParameter("gwamokInstructor");
-		gwamok gwamok = service.gaeseol(gwamokName, gwamokPeople, gwamokInstructor);
-		
-		request.getSession().setAttribute("gwamokSession", gwamok);
-
+	private GwamokService service;
+	@RequestMapping(value = "/GwamokController/Gwamokgaeseol.do", method = RequestMethod.POST)
+	public String Gwamokgaeseol(String gcno,String gcname, String gyear,String gclass,String gnum,String gscore,String ginst){
+		service.newgwamok(gcno,gcname,gyear,gclass,gnum,gscore,ginst);
 			return "gaeseolView";
-//		}
 	}
 	
 }
