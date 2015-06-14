@@ -58,4 +58,40 @@ public class GwamokService {
 		}	
 	}
 
+	public void enroll(String cno, String name) {
+		// TODO Auto-generated method stub
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int result;
+
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			
+			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:xe";
+			String userId = "class_a";
+			String userPass = "delab";
+			
+			conn = DriverManager.getConnection(jdbcUrl, userId, userPass);
+			
+			stmt = conn.prepareStatement("insert into ENROLL_SE values(?, ?, ?)");
+			stmt.setString(1, cno);
+			stmt.setString(2, name);
+			stmt.setString(3, "null");
+			result = stmt.executeUpdate();
+			
+			stmt.close();
+			conn.close();
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+		} catch (ClassNotFoundException e){
+			
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}	
+	}
+
 }

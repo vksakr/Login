@@ -15,6 +15,6 @@
 ${userSession.getID()}
 
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>
-<a href="${pageContext.request.contextPath}/GwamokController/gwamok.do"> 과목개설</a>
+<a href="${pageContext.request.contextPath}/GwamokController/gwamokS.do"> 과목개설</a>
 </body>
 </html>

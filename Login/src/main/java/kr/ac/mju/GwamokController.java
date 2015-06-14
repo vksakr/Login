@@ -25,6 +25,13 @@ public class GwamokController {
 		return "sugangView";
 	}
 	
+	@RequestMapping(value = "/GwamokController/gwamokS.do", method = RequestMethod.GET)
+	public String gwamokS(HttpServletRequest request){
+		logger.info("Welcome gwamok!");
+		request.getSession().getAttribute("userSession");
+		return "GwamokView";
+	}
+	
 	@RequestMapping(value = "/GwamokController/Home")
 	public String home(){
 	
@@ -37,6 +44,12 @@ public class GwamokController {
 	public String Gwamokgaeseol(String gcno,String gcname, String gyear,String gclass,String gnum,String gscore,String ginst){
 		service.newgwamok(gcno,gcname,gyear,gclass,gnum,gscore,ginst);
 			return "gaeseolView";
+	}
+	
+	@RequestMapping(value = "/GwamokController/enroll.do", method = RequestMethod.POST)
+	public String enroll(String cno,String name){
+		service.enroll(cno,name);
+			return "enrollView";
 	}
 	
 }

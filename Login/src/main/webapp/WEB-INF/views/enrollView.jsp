@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body> 
-환영합니다 ${userSession.getName()}
-<h1> 개설된 강의 정보</h1>
+<h1> 수강 정보</h1>
 	<table border="1">
 		<tr>
 			<td width = "100">강좌번호</td>
@@ -19,6 +18,8 @@
 			<td width = "100">정원</td>
 			<td width = "100">학점</td>
 			<td width = "100">교수</td>
+			<td width = "100">학생이름</td>
+			<td width = "100">성적</td>
 		</tr>
 
 <%
@@ -38,7 +39,7 @@
 		String userPass = "delab";
 
 		conn = DriverManager.getConnection(jdbcUrl, userId, userPass);
-		String sql = "SELECT * FROM CLASS_SE";
+		String sql = "SELECT * FROM CLASS_SE natural join ENROLL_SE";
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 
@@ -50,6 +51,8 @@
 				String num = rs.getString("num");
 				String score = rs.getString("score");
 				String inst = rs.getString("inst");
+				String name = rs.getString("name");
+				String grade = rs.getString("grade");
 				
 %>
 				<tr>
@@ -60,6 +63,8 @@
 					<td width = "100"><%= num%></td>
 					<td width = "100"><%= score%></td>
 					<td width = "100"><%= inst%></td>
+					<td width = "100"><%= name%></td>
+					<td width = "100"><%= grade%></td>
 				</tr>
 <%
 		}
@@ -84,16 +89,7 @@
 		}
 %>
 
-<form action="${pageContext.request.contextPath}/GwamokController/enroll.do"  method="post">
-	<table>
-		<td>원하는 강좌번호를 입력하세요. <input type="text" name="cno"></td>
-		<td><input type="hidden" name="name" value="${userSession.getName()}"></td>
-		<td><input type="submit" value="확인"></td>
-	</table>
-	<a href="${pageContext.request.contextPath}/">취소</a>
-</form>
-	
-
+	<br>
 <a href="${pageContext.request.contextPath}/LoginController/Logout"> 로그아웃</a>
 <a href="${pageContext.request.contextPath}/GwamokController/Home"> 이전화면</a>
 
