@@ -61,6 +61,14 @@ public class LoginService {
 	//	user.setName("원호명");
 		
 	//	return user;
+		
+		/*
+		private fianl static String URL = "jdbc:mysql://localjost:3306/";
+		private fianl static String ID = "";
+		private fianl static String PASSWORD = "";
+		
+		private Connection getConnection() throws 
+*/
 	}
 
 }
